@@ -1,79 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import FloatingObject from "@/components/FloatingObject";
 import Navbar from "@/components/Navbar";
-
-/** Floating 3D placeholder objects — swap these for real assets later */
-const floatingObjects = [
-  {
-    color: "linear-gradient(135deg, #ec4899, #f472b6)",
-    size: 160,
-    x: 8,
-    y: 42,
-    parallaxFactor: 40,
-    delay: 0,
-    borderRadius: "50%",
-    emoji: "🎲",
-  },
-  {
-    color: "linear-gradient(135deg, #a855f7, #c084fc)",
-    size: 120,
-    x: 28,
-    y: 55,
-    parallaxFactor: 25,
-    delay: 0.3,
-    borderRadius: "30%",
-    emoji: "🪑",
-  },
-  {
-    color: "linear-gradient(135deg, #22c55e, #86efac)",
-    size: 180,
-    x: 60,
-    y: 48,
-    parallaxFactor: 35,
-    delay: 0.15,
-    borderRadius: "40%",
-    emoji: "🥒",
-  },
-  {
-    color: "linear-gradient(135deg, #f59e0b, #fcd34d)",
-    size: 100,
-    x: 82,
-    y: 38,
-    parallaxFactor: 50,
-    delay: 0.45,
-    borderRadius: "50%",
-    emoji: "🏀",
-    hideOnMobile: true,
-  },
-  {
-    color: "linear-gradient(135deg, #3b82f6, #93c5fd)",
-    size: 90,
-    x: 45,
-    y: 35,
-    parallaxFactor: 30,
-    delay: 0.6,
-    borderRadius: "50%",
-    emoji: "💎",
-    hideOnMobile: true,
-  },
-];
+import DevDraggable from "@/components/DevDraggable";
 
 export default function Home() {
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-start overflow-hidden bg-black">
@@ -89,7 +21,7 @@ export default function Home() {
       >
         <h1
           className="whitespace-nowrap text-white"
-          style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}
+          style={{ fontSize: "clamp(1.6rem, 2.9vw, 2.9rem)", lineHeight: 1.15 }}
         >
           <span
             className="font-semibold"
@@ -108,24 +40,65 @@ export default function Home() {
         </h1>
       </motion.div>
 
-      {/* ── Floating placeholder objects ── */}
+      {/* ── Floating images — clustered in center ── */}
       <div className="absolute inset-0 z-0">
-        {floatingObjects.map((obj, i) => (
-          <FloatingObject
-            key={i}
-            color={obj.color}
-            size={obj.size}
-            x={obj.x}
-            y={obj.y}
-            parallaxFactor={obj.parallaxFactor}
-            mouseX={mousePos.x}
-            mouseY={mousePos.y}
-            delay={obj.delay}
-            borderRadius={obj.borderRadius}
-            emoji={obj.emoji}
-            hideOnMobile={obj.hideOnMobile}
-          />
-        ))}
+        {/* Pink Strat */}
+        <DevDraggable name="pinkstrat" initialLeft="-8%" initialTop="16%" initialWidth="110vw">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: [0, -14, 0],
+              rotate: [-12, -10, -13, -12],
+            }}
+            transition={{
+              opacity: { duration: 1, delay: 0.4 },
+              scale: { duration: 1, delay: 0.4 },
+              y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+              rotate: { duration: 7, repeat: Infinity, ease: "easeInOut" },
+            }}
+          >
+            <Image
+              src="/images/pinkstrat.png"
+              alt="Pink Stratocaster"
+              width={1920}
+              height={1920}
+              priority
+              className="pointer-events-none select-none w-full"
+              style={{ height: "auto" }}
+            />
+          </motion.div>
+        </DevDraggable>
+
+        {/* Rose */}
+        <DevDraggable name="rose" initialLeft="50%" initialTop="54%" initialWidth="13vw" zIndex={1}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: [0, -10, 0],
+              rotate: [8, 10, 6, 8],
+            }}
+            transition={{
+              opacity: { duration: 1, delay: 0.6 },
+              scale: { duration: 1, delay: 0.6 },
+              y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+              rotate: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+            }}
+          >
+            <Image
+              src="/images/rose.png"
+              alt="Rose"
+              width={800}
+              height={800}
+              priority
+              className="pointer-events-none select-none w-full"
+              style={{ height: "auto" }}
+            />
+          </motion.div>
+        </DevDraggable>
       </div>
 
       {/* ── Bottom navbar ── */}
