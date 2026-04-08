@@ -2,11 +2,22 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 
+// Global registry so the save button can read all current states
+const registry: Record<
+  string,
+  { left: string; top: string; width: string; rotate: number }
+> = {};
+
+export function getRegistry() {
+  return registry;
+}
+
 interface DevDraggableProps {
   name: string;
   initialLeft: string;
   initialTop: string;
   initialWidth: string;
+  initialRotate?: number;
   children: React.ReactNode;
   zIndex?: number;
 }
@@ -21,6 +32,7 @@ export default function DevDraggable({
   initialLeft,
   initialTop,
   initialWidth,
+  initialRotate = 0,
   children,
   zIndex = 0,
 }: DevDraggableProps) {
@@ -29,6 +41,7 @@ export default function DevDraggable({
   const [left, setLeft] = useState(initialLeft);
   const [top, setTop] = useState(initialTop);
   const [width, setWidth] = useState(initialWidth);
+  const [rotate, setRotate] = useState(initialRotate);
   const [dragging, setDragging] = useState(false);
   const [selected, setSelected] = useState(false);
   const dragStart = useRef({ x: 0, y: 0, left: 0, top: 0 });
@@ -38,9 +51,9 @@ export default function DevDraggable({
   const parseVw = (v: string) => parseFloat(v);
 
   const logValues = useCallback(
-    (l: string, t: string, w: string) => {
+    (l: string, t: string, w: string, r: number) => {
       console.log(
-        `[DevDraggable] ${name}: left: "${l}", top: "${t}", width: "${w}"`
+        `[DevDraggable] ${name}: left: "${l}", top: "${t}", width: "${w}", rotate: ${r}deg`
       );
     },
     [name]
@@ -76,7 +89,7 @@ export default function DevDraggable({
       const t = `${Math.round(newTop)}%`;
       setLeft(l);
       setTop(t);
-      logValues(l, t, width);
+      logValues(l, t, width, rotate);
     };
 
     const onMouseUp = () => {
@@ -91,20 +104,33 @@ export default function DevDraggable({
     };
   }, [dragging, width, logValues]);
 
-  // Scroll to resize
+  // Scroll to resize, Shift+scroll to rotate
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
       if (!isDev || !selected) return;
       e.preventDefault();
       e.stopPropagation();
-      const current = parseVw(width);
-      const delta = e.deltaY > 0 ? -1 : 1;
-      const newWidth = `${Math.max(1, Math.round(current + delta))}vw`;
-      setWidth(newWidth);
-      logValues(left, top, newWidth);
+      if (e.shiftKey) {
+        const delta = e.deltaY > 0 ? -2 : 2;
+        const newRotate = Math.round(rotate + delta);
+        setRotate(newRotate);
+        logValues(left, top, width, newRotate);
+      } else {
+        const current = parseVw(width);
+        const delta = e.deltaY > 0 ? -1 : 1;
+        const newWidth = `${Math.max(1, Math.round(current + delta))}vw`;
+        setWidth(newWidth);
+        logValues(left, top, newWidth, rotate);
+      }
     },
-    [isDev, selected, width, left, top, logValues]
+    [isDev, selected, width, rotate, left, top, logValues]
   );
+
+  // Keep global registry in sync
+  useEffect(() => {
+    if (!isDev) return;
+    registry[name] = { left, top, width, rotate };
+  }, [isDev, name, left, top, width, rotate]);
 
   // Click outside to deselect
   useEffect(() => {
@@ -122,7 +148,7 @@ export default function DevDraggable({
     return (
       <div
         className="absolute"
-        style={{ left: initialLeft, top: initialTop, width: initialWidth, zIndex }}
+        style={{ left: initialLeft, top: initialTop, width: initialWidth, zIndex, transform: `rotate(${initialRotate}deg)` }}
       >
         {children}
       </div>
@@ -137,6 +163,7 @@ export default function DevDraggable({
         left,
         top,
         width,
+        transform: `rotate(${rotate}deg)`,
         zIndex: selected ? 9999 : zIndex,
         cursor: dragging ? "grabbing" : "grab",
         outline: selected ? "2px dashed rgba(255,100,200,0.8)" : "none",
@@ -162,7 +189,7 @@ export default function DevDraggable({
             zIndex: 10000,
           }}
         >
-          {name} — L:{left} T:{top} W:{width} (scroll to resize)
+          {name} — L:{left} T:{top} W:{width} R:{rotate}deg (scroll=resize, shift+scroll=tilt)
         </div>
       )}
       <div style={{ pointerEvents: "none" }}>{children}</div>

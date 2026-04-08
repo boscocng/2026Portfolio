@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import DevDraggable from "@/components/DevDraggable";
 
 export default function Home() {
 
@@ -40,68 +38,7 @@ export default function Home() {
         </h1>
       </motion.div>
 
-      {/* ── Floating images — clustered in center ── */}
-      <div className="absolute inset-0 z-0">
-        {/* Pink Strat */}
-        <DevDraggable name="pinkstrat" initialLeft="-8%" initialTop="16%" initialWidth="110vw">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: [0, -14, 0],
-              rotate: [-12, -10, -13, -12],
-            }}
-            transition={{
-              opacity: { duration: 1, delay: 0.4 },
-              scale: { duration: 1, delay: 0.4 },
-              y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-              rotate: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-            }}
-          >
-            <Image
-              src="/images/pinkstrat.png"
-              alt="Pink Stratocaster"
-              width={1920}
-              height={1920}
-              priority
-              className="pointer-events-none select-none w-full"
-              style={{ height: "auto" }}
-            />
-          </motion.div>
-        </DevDraggable>
-
-        {/* Rose */}
-        <DevDraggable name="rose" initialLeft="50%" initialTop="54%" initialWidth="13vw" zIndex={1}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: [0, -10, 0],
-              rotate: [8, 10, 6, 8],
-            }}
-            transition={{
-              opacity: { duration: 1, delay: 0.6 },
-              scale: { duration: 1, delay: 0.6 },
-              y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-              rotate: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-            }}
-          >
-            <Image
-              src="/images/rose.png"
-              alt="Rose"
-              width={800}
-              height={800}
-              priority
-              className="pointer-events-none select-none w-full"
-              style={{ height: "auto" }}
-            />
-          </motion.div>
-        </DevDraggable>
-      </div>
-
-      {/* ── Bottom navbar ── */}
+{/* ── Bottom navbar ── */}
       <Navbar />
     </main>
   );
