@@ -16,17 +16,17 @@ const experiences = [
     location: "Toronto, ON",
     dates: "May 2026 — Present",
     description:
-      "Built internal tooling that automated deployment workflows across 12 engineering teams, reducing release cycle time by 40%. Owned the full stack from database migrations to the React dashboard used by 200+ engineers daily.",
+      "Building AI-powered vertical SaaS products at Canada's fastest-growing startup, which scaled from $0 to $8M ARR in 6 months. Developing web scrapers, customer-facing dashboards, and fine-tuned LLMs for SEO-optimized content generation.",
   },
   {
     logo: "/images/cansbridge.jpeg",
-    role: "Research",
+    role: "Scholar",
     company: "Cansbridge Scholars",
     link: "https://www.cansbridgescholars.com/",
     location: "San Francisco, CA",
     dates: "Jan 2026 — April 2026",
     description:
-      "Designed and shipped a real-time collaboration feature for the company's flagship product. Integrated WebSocket-based sync with conflict resolution, serving 5,000+ concurrent users across web and mobile clients.",
+      "Selected as 1 of 17 scholars in an elite 8-week entrepreneurship fellowship for Canada's top students. Built and pitched a venture project, mentored by Peter Thiel Fellows and YC-backed founders.",
   },
   {
     logo: "/images/lawtonica.jpeg",
@@ -36,7 +36,7 @@ const experiences = [
     location: "Kingston, ON",
     dates: "Sept 2025 — Jan 2026",
     description:
-      "Developed evaluation pipelines for large language model outputs, contributing to two published papers on retrieval-augmented generation. Built a custom annotation interface used by a team of 8 researchers.",
+      "Scaled an LLM-powered civic-tech assistant from 70% to 94% accuracy using Node.js, TypeScript, and LangChain. Designed APIs with JWT authentication and Stripe integration, making municipal by-laws accessible to residents and businesses.",
   },
   {
     logo: "/images/compsa.jpeg",
@@ -46,7 +46,7 @@ const experiences = [
     location: "Kingston, ON",
     dates: "April 2025 — Present",
     description:
-      "Developed evaluation pipelines for large language model outputs, contributing to two published papers on retrieval-augmented generation. Built a custom annotation interface used by a team of 8 researchers.",
+      "Leading a 14-member tech team building digital products for 1,800+ students. Directed 6 major projects accumulating 7,800+ users, including a room booking platform, e-commerce store, computing clubs hub, and AI chatbot.",
   },
 ];
 
