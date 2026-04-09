@@ -13,6 +13,7 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const handleCopyEmail = async () => {
     try {
@@ -32,9 +33,26 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, message });
+    setStatus("sending");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (!res.ok) throw new Error();
+
+      setStatus("sent");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -186,7 +204,7 @@ export default function Contact() {
 
         {/* Contact form — centered, max-width for readability */}
         <motion.div
-          className="w-full max-w-[560px] px-6 mt-16 pb-24"
+          className="w-full max-w-[560px] px-6 mt-16 pb-16"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -308,7 +326,8 @@ export default function Contact() {
           >
             <button
               type="submit"
-              className="w-full rounded-full py-4 text-black transition-opacity hover:opacity-90"
+              disabled={status === "sending"}
+              className="w-full rounded-full py-4 text-black transition-opacity hover:opacity-90 disabled:opacity-60"
               style={{
                 fontFamily: "var(--font-season-sans)",
                 fontWeight: 600,
@@ -317,11 +336,30 @@ export default function Contact() {
                 background: "#FFA5C6",
               }}
             >
-              Submit{" "}
-              <span className="inline-block ml-1" style={{ fontSize: "1em" }}>
-                ✧→
-              </span>
+              {status === "sending" ? (
+                "Sending..."
+              ) : status === "sent" ? (
+                "Sent! ✓"
+              ) : (
+                <span className="inline-flex items-center gap-1.5">
+                  Submit
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/arrow.png"
+                    alt=""
+                    className="inline-block h-[1em] w-auto"
+                  />
+                </span>
+              )}
             </button>
+            {status === "error" && (
+              <p
+                className="mt-3 text-center text-sm"
+                style={{ color: "#FFA5C6" }}
+              >
+                Something went wrong. Please try again.
+              </p>
+            )}
           </motion.div>
         </form>
       </motion.div>

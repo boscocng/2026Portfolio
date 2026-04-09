@@ -15,7 +15,7 @@ const fadeUp = {
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-black pt-24 pb-6">
+    <footer className="relative w-full bg-black pt-8 pb-6">
       <motion.div
         className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8 flex flex-col items-center"
         initial="hidden"

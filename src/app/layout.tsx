@@ -15,7 +15,7 @@ const permanentMarker = Permanent_Marker({
 });
 
 export const metadata: Metadata = {
-  title: "Bosco Ng — Software Engineer",
+  title: "Bosco Ng",
   description:
     "Portfolio of Bosco Ng — a software engineer who turns ideas into products that serve thousands.",
 };
