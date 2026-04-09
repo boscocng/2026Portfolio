@@ -11,7 +11,7 @@ const navLinks = [
 export default function Navbar() {
   return (
     <motion.nav
-      className="fixed bottom-14 left-1/2 z-50 -translate-x-1/2"
+      className="fixed bottom-18 left-1/2 z-50 -translate-x-1/2 scale-110 origin-bottom"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1.6, ease: [0.25, 0.46, 0.45, 0.94] }}
