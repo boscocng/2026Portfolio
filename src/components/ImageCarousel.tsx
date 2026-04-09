@@ -21,7 +21,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden mx-auto max-w-[1400px] px-6 md:px-12 lg:px-16"
+      className="relative overflow-hidden"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

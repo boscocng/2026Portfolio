@@ -31,7 +31,7 @@ export default function ProjectCard({
     <div className="w-full">
       {/* Info section */}
       <motion.div
-        className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-16 pb-10"
+        className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8 pb-10"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -39,7 +39,7 @@ export default function ProjectCard({
       >
         {/* Tags row + See Full Case */}
         <motion.div
-          className="flex items-center justify-between mb-3"
+          className="flex items-center justify-between mb-6"
           variants={fadeUp}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
@@ -83,7 +83,7 @@ export default function ProjectCard({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,280px)_minmax(0,280px)] gap-6 lg:gap-10">
           {/* Left: Title + description flowing together */}
           <motion.div
-            className=""
+            className="max-w-[360px]"
             variants={fadeUp}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
@@ -119,8 +119,8 @@ export default function ProjectCard({
             style={{
               fontFamily: "var(--font-season-sans)",
               fontWeight: 400,
-              fontSize: "14px",
-              lineHeight: "20px",
+              fontSize: "12px",
+              lineHeight: "15.6px",
               letterSpacing: "0px",
               color: "#FFFFFF",
             }}
@@ -135,8 +135,8 @@ export default function ProjectCard({
             style={{
               fontFamily: "var(--font-season-sans)",
               fontWeight: 400,
-              fontSize: "14px",
-              lineHeight: "20px",
+              fontSize: "12px",
+              lineHeight: "15.6px",
               letterSpacing: "0px",
               color: "#FFFFFF",
             }}
@@ -167,8 +167,9 @@ export default function ProjectCard({
         </a>
       </motion.div>
 
-      {/* Image carousel — full bleed */}
+      {/* Image carousel — aligned with content */}
       <motion.div
+        className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.1 }}
