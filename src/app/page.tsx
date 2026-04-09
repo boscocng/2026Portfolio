@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
+import Experience from "@/components/Experience";
 import PolaroidFan from "@/components/PolaroidFan";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 const roles = ["engineer", "student", "builder", "leader", "musician"];
 
@@ -76,6 +79,15 @@ export default function Home() {
 
       {/* ── Projects section ── */}
       <Projects />
+
+      {/* ── Experience section ── */}
+      <Experience />
+
+      {/* ── Contact section ── */}
+      <Contact />
+
+      {/* ── Footer ── */}
+      <Footer />
 
       {/* ── Bottom navbar ── */}
       <Navbar />

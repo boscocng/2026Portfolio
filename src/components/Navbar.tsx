@@ -2,16 +2,16 @@
 
 import { motion } from "framer-motion";
 
-const navLinks = [
+const navLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
-  { label: "About", href: "#about" },
+  { label: "Resume", href: "/Bosco_Ng_Resume.pdf", external: true },
 ];
 
 export default function Navbar() {
   return (
     <motion.nav
-      className="fixed bottom-12 left-1/2 z-50 -translate-x-1/2 scale-100 origin-bottom"
+      className="fixed bottom-16 left-1/2 z-50 -translate-x-1/2 scale-100 origin-bottom"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1.6, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -32,6 +32,7 @@ export default function Navbar() {
             <a
               key={link.label}
               href={link.href}
+              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="px-2.5 py-3 text-white transition-colors hover:text-white/70"
               style={{ fontFamily: "var(--font-season-sans)", fontSize: "12px", letterSpacing: "-0.1px" }}
             >
