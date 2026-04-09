@@ -39,7 +39,7 @@ export default function ProjectCard({
       >
         {/* Tags row + See Full Case */}
         <motion.div
-          className="flex items-start justify-between mb-6"
+          className="flex items-center justify-between mb-3"
           variants={fadeUp}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
@@ -47,8 +47,14 @@ export default function ProjectCard({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-white/[0.1] border border-white/[0.08] px-3.5 py-1.5 text-xs text-white"
-                style={{ fontFamily: "var(--font-season-sans)" }}
+                className="rounded-full border border-white/[0.06] px-3.5 py-1.5"
+                style={{
+                  fontFamily: "var(--font-season-sans)",
+                  fontSize: "12px",
+                  lineHeight: "15.6px",
+                  color: "#FFFFFF",
+                  background: "#323332",
+                }}
               >
                 {tag}
               </span>
@@ -58,8 +64,15 @@ export default function ProjectCard({
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex flex-shrink-0 items-center gap-1.5 rounded-full border border-white/20 px-4 py-2 text-xs text-white transition-colors hover:bg-white/[0.08]"
-            style={{ fontFamily: "var(--font-season-sans)" }}
+            className="hidden sm:flex flex-shrink-0 items-center gap-1.5 rounded-full border border-white/[0.06] px-3.5 py-1.5 transition-colors hover:bg-white/[0.15]"
+            style={{
+              fontFamily: "var(--font-season-sans)",
+              fontSize: "12px",
+              lineHeight: "15.6px",
+              fontWeight: 600,
+              color: "#FFFFFF",
+              background: "#323332",
+            }}
           >
             See Full Case
             <span className="text-sm">&#x2197;</span>
@@ -67,31 +80,50 @@ export default function ProjectCard({
         </motion.div>
 
         {/* Title + Description + Detail columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
-          {/* Left: Title + short description */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,280px)_minmax(0,280px)] gap-6 lg:gap-10">
+          {/* Left: Title + description flowing together */}
           <motion.div
-            className="lg:col-span-1"
+            className=""
             variants={fadeUp}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <h3
-              className="text-white text-[1.5rem] md:text-[1.75rem] leading-[1.2] mb-3"
-              style={{ fontFamily: "var(--font-season-sans)", fontWeight: 600 }}
-            >
-              {title}
-            </h3>
             <p
-              className="text-white/70 text-[0.95rem] leading-[1.6]"
-              style={{ fontFamily: "var(--font-season-mix)" }}
+              style={{
+                fontSize: "25px",
+                lineHeight: "27.5px",
+                letterSpacing: "0px",
+                color: "#FFFFFF",
+              }}
             >
-              {description}
+              <span
+                style={{
+                  fontFamily: "var(--font-season-sans)",
+                  fontWeight: 600,
+                }}
+              >
+                {title}
+              </span>{" "}
+              <span
+                style={{
+                  fontFamily: "var(--font-season-mix)",
+                  fontWeight: 400,
+                }}
+              >
+                {description}
+              </span>
             </p>
           </motion.div>
 
           {/* Center: Detail paragraph */}
           <motion.p
-            className="text-white/50 text-[0.88rem] leading-[1.7]"
-            style={{ fontFamily: "var(--font-season-mix)" }}
+            style={{
+              fontFamily: "var(--font-season-sans)",
+              fontWeight: 400,
+              fontSize: "14px",
+              lineHeight: "20px",
+              letterSpacing: "0px",
+              color: "#FFFFFF",
+            }}
             variants={fadeUp}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
@@ -100,8 +132,14 @@ export default function ProjectCard({
 
           {/* Right: Detail paragraph */}
           <motion.p
-            className="text-white/50 text-[0.88rem] leading-[1.7]"
-            style={{ fontFamily: "var(--font-season-mix)" }}
+            style={{
+              fontFamily: "var(--font-season-sans)",
+              fontWeight: 400,
+              fontSize: "14px",
+              lineHeight: "20px",
+              letterSpacing: "0px",
+              color: "#FFFFFF",
+            }}
             variants={fadeUp}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
@@ -114,8 +152,15 @@ export default function ProjectCard({
           href={link}
           target="_blank"
           rel="noopener noreferrer"
-          className="sm:hidden mt-6 inline-flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-2 text-xs text-white transition-colors hover:bg-white/[0.08]"
-          style={{ fontFamily: "var(--font-season-sans)" }}
+          className="sm:hidden mt-6 inline-flex items-center gap-1.5 rounded-full border border-white/[0.06] px-3.5 py-1.5 transition-colors hover:bg-white/[0.15]"
+          style={{
+            fontFamily: "var(--font-season-sans)",
+            fontSize: "12px",
+            lineHeight: "15.6px",
+            fontWeight: 600,
+            color: "#FFFFFF",
+            background: "#323332",
+          }}
         >
           See Full Case
           <span className="text-sm">&#x2197;</span>

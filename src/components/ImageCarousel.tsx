@@ -21,8 +21,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   return (
     <div
       ref={containerRef}
-      className="relative w-screen overflow-hidden"
-      style={{ marginLeft: "calc(-50vw + 50%)" }}
+      className="relative overflow-hidden mx-auto max-w-[1400px] px-6 md:px-12 lg:px-16"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -45,7 +44,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
             className="flex-shrink-0 rounded-lg overflow-hidden"
             style={{
               width: img.width,
-              height: 420,
+              height: 350,
               backgroundColor: img.color || "#1a1a1a",
             }}
           />

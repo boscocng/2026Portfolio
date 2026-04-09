@@ -62,18 +62,18 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full bg-black pt-24 pb-16">
+    <section id="projects" className="relative w-full bg-black pt-8 pb-16">
       {/* Section header */}
       <motion.div
-        className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-16 mb-12"
+        className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-16 mb-2"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
         <h2
-          className="text-center text-white text-base md:text-lg tracking-[0.25em] uppercase mb-10"
-          style={{ fontFamily: "var(--font-lacquer)" }}
+          className="text-center uppercase mb-10"
+          style={{ fontFamily: "var(--font-lacquer)", fontSize: "19px", lineHeight: "19px", letterSpacing: "0px", color: "#FFFFFF" }}
         >
           Projects
         </h2>
