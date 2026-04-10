@@ -118,11 +118,11 @@ export default function Contact() {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             {/* Chat button */}
-            <a
+            <motion.a
               href="https://cal.com/boscocng/15min"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-white/[0.06] px-6 py-2.5 text-white transition-colors hover:bg-white/[0.15]"
+              className="flex items-center gap-2 rounded-full border border-white/[0.06] px-6 py-2.5 text-white"
               style={{
                 fontFamily: "var(--font-season-sans)",
                 fontWeight: 600,
@@ -130,6 +130,9 @@ export default function Contact() {
                 lineHeight: "15.6px",
                 background: "#323332",
               }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               {/* Video chat icon */}
               <svg
@@ -146,13 +149,13 @@ export default function Contact() {
                 <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
               </svg>
               Chat
-            </a>
+            </motion.a>
 
             {/* Email button */}
-            <button
+            <motion.button
               type="button"
               onClick={handleCopyEmail}
-              className="relative flex items-center gap-2 rounded-full border border-white/[0.06] px-6 py-2.5 text-white transition-colors hover:bg-white/[0.15]"
+              className="relative flex items-center gap-2 rounded-full border border-white/[0.06] px-6 py-2.5 text-white"
               style={{
                 fontFamily: "var(--font-season-sans)",
                 fontWeight: 600,
@@ -160,6 +163,9 @@ export default function Contact() {
                 lineHeight: "15.6px",
                 background: "#323332",
               }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               {/* Envelope icon */}
               <svg
@@ -198,7 +204,7 @@ export default function Contact() {
                   </motion.span>
                 )}
               </AnimatePresence>
-            </button>
+            </motion.button>
           </motion.div>
         </motion.div>
 
@@ -236,6 +242,7 @@ export default function Contact() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Paul McCartney"
+              required
               className="w-full bg-transparent pb-3 text-white placeholder:text-white/25 focus:outline-none"
               style={{
                 fontFamily: "var(--font-season-sans)",
@@ -272,6 +279,7 @@ export default function Contact() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
+              required
               className="w-full bg-transparent pb-3 text-white placeholder:text-white/25 focus:outline-none"
               style={{
                 fontFamily: "var(--font-season-sans)",
@@ -307,6 +315,7 @@ export default function Contact() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Your message..."
+              required
               rows={5}
               className="w-full resize-none bg-transparent pb-3 text-white placeholder:text-white/25 focus:outline-none"
               style={{
