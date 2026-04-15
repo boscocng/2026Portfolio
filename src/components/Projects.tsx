@@ -5,15 +5,15 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
-    title: "Avant-Garde Territory:",
+    title: "Merch Store:",
     description:
-      "visual language for telling the story of Ural's Avant-garde architecture in a modern way",
+      "a custom e-commerce platform for Queen's University's Computing Students' Association",
     detailLeft:
-      "Avant-Garde Territory is a cultural project dedicated to preserving and promoting the Ural region's constructivist architecture. The project aims to reimagine the perception of the Avant-garde movement, giving it a modern look and turning this cultural legacy into a key tourist attraction.",
+      "Merch Store is a full-stack e-commerce platform I led our Tech Team to build from scratch, giving Queen's Computing students a seamless way to browse, purchase, and pick up official club merchandise. It replaces a generic third-party storefront with purpose-built infrastructure tailored to how a student association actually operates.",
     detailRight:
-      "We created a flexible identity that merges Avant-garde principles with a modern approach, combining bold colors, geometric forms, and neo-grotesque typography. At its center stands the region's iconic constructivist building, reimagined as a graphic symbol of cultural continuity.",
+      "The platform runs on Next.js and Supabase with Stripe checkout, real-time inventory sync, and automated transactional emails. A campus pickup slot system and an admin dashboard for per-variant stock control make fulfillment structured and predictable, turning merch season from a logistics headache into a repeatable process.",
     tags: ["Full-Stack", "AI/ML", "Leadership"],
-    link: "#",
+    link: "https://merch.compsa.ca/",
     images: [
       { width: 320, color: "#2a2a2a" },
       { width: 380, color: "#1e1e1e" },
@@ -23,13 +23,13 @@ const projects = [
     ],
   },
   {
-    title: "Neural Canvas:",
+    title: "TubeWatcher:",
     description:
-      "an AI-powered creative tool that transforms rough sketches into polished illustrations in real-time",
+      "a SaaS platform that places strategic comments on YouTube videos to influence purchase decisions",
     detailLeft:
-      "Neural Canvas bridges the gap between ideation and execution for designers and artists. Using a custom-trained diffusion model, it interprets hand-drawn strokes and converts them into production-ready vector artwork while preserving the creator's original intent and style.",
+      "TubeWatcher is a full-stack SaaS platform I built that helps brands reach buyers where they actually make decisions: the comment sections of YouTube product reviews. It identifies high-opportunity videos, analyzes their content with AI, and generates human-sounding comments designed to influence viewers moments away from purchasing.",
     detailRight:
-      "Built with a React frontend and Python ML backend, the system processes strokes in under 200ms. The architecture uses WebSocket streaming for real-time preview, with a plugin system that integrates directly into Figma and Adobe Illustrator workflows.",
+      "Trained on a proprietary dataset of 11,000 real YouTube comments across 8 industries, the platform produces output indistinguishable from organic viewers. A scoring formula surfaces videos where a single comment reaches the most eyeballs, and a multi-company dashboard lets clients generate and copy comments in seconds.",
     tags: ["Machine Learning", "React", "Python"],
     link: "#",
     images: [

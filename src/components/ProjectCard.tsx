@@ -74,7 +74,7 @@ export default function ProjectCard({
               background: "#323332",
             }}
           >
-            See Full Case
+            Visit Project
             <span className="text-sm">&#x2197;</span>
           </a>
         </motion.div>
