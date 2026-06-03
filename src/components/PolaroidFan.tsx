@@ -75,7 +75,7 @@ function Polaroid({
           }}
         >
           {/* Pop wrapper — owns this polaroid's hover state and inherits the
-              tilt from its ancestors, so the glow and badge tilt with it.
+              tilt from its ancestors, so the badge tilts with it.
               `isolate` scopes the layer z-indexes below. */}
           <motion.div
             className="relative isolate"
@@ -88,14 +88,6 @@ function Polaroid({
             }}
             transition={{ type: "spring", stiffness: 300, damping: 22 }}
           >
-            {/* Soft outward bloom, behind the opaque frame. */}
-            <div
-              aria-hidden
-              className={`beam-bloom pointer-events-none absolute -inset-[6px] -z-10 rounded-md transition-opacity duration-300 ${
-                hovered ? "opacity-100" : "opacity-0"
-              }`}
-            />
-
             <div
               className="rounded-sm bg-white shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
               style={{ padding: "10px 10px 36px 10px" }}
@@ -111,14 +103,6 @@ function Polaroid({
                 />
               </div>
             </div>
-
-            {/* Thin traveling glow line that hugs the frame's edge. */}
-            <div
-              aria-hidden
-              className={`beam-ring pointer-events-none absolute inset-0 z-20 rounded-sm transition-opacity duration-300 ${
-                hovered ? "opacity-100" : "opacity-0"
-              }`}
-            />
 
             {/* Cansbridge badge, overlapping the top-left corner. */}
             <div
