@@ -57,8 +57,8 @@ const experiences = [
     location: "San Francisco, CA",
     dates: "June 2026 — Present",
     description:
-      "Founding an AI trading journal that connects to a trader's brokerage and answers any question about their entire trade history in plain English. Building a data pipeline and AI agent that fetches live market data on demand, computing real answers across one trade or a full track record analysis no existing journal can do.",
-    highlights: [],
+      "Founding an AI trading journal that answers any question about a trader's full history in plain English. Building an AI agent that fetches live market data on demand to compute real answers no journal can match.",
+    highlights: ["AI trading journal", "plain English", "AI agent", "no journal can match"],
   },
   {
     logo: "/images/cansbridge.jpeg",
