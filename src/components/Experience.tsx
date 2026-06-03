@@ -7,6 +7,36 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
+// Translucent wash of the Contact submit-button pink (#FFA5C6) — a soft highlighter
+// reserved for the highest-signal facts: quantified impact and marquee credentials.
+const HIGHLIGHT = "rgba(255, 165, 198, 0.4)";
+
+function highlightDescription(text: string, phrases: string[]) {
+  if (phrases.length === 0) return text;
+  const pattern = phrases
+    .map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  return text.split(new RegExp(`(${pattern})`, "g")).map((part, i) =>
+    phrases.includes(part) ? (
+      <mark
+        key={i}
+        style={{
+          backgroundColor: HIGHLIGHT,
+          color: "inherit",
+          padding: "0.02em 0.12em",
+          borderRadius: "0.1em",
+          boxDecorationBreak: "clone",
+          WebkitBoxDecorationBreak: "clone",
+        }}
+      >
+        {part}
+      </mark>
+    ) : (
+      part
+    ),
+  );
+}
+
 const experiences = [
   {
     logo: "/images/Clover.jpeg",
@@ -17,6 +47,7 @@ const experiences = [
     dates: "May 2026 — Present",
     description:
       "Building AI-powered vertical SaaS products at Canada's fastest-growing startup, which scaled from $0 to $8M ARR in 6 months. Developing web scrapers, customer-facing dashboards, and fine-tuned LLMs for SEO-optimized content generation.",
+    highlights: ["$0 to $8M ARR in 6 months"],
   },
   {
     logo: "/images/cansbridge.jpeg",
@@ -27,6 +58,7 @@ const experiences = [
     dates: "Jan 2026 — April 2026",
     description:
       "Selected as 1 of 17 scholars in an elite 8-week entrepreneurship fellowship for Canada's top students. Built and pitched a venture project, mentored by Peter Thiel Fellows and YC-backed founders.",
+    highlights: ["1 of 17", "Peter Thiel Fellows and YC-backed founders"],
   },
   {
     logo: "/images/lawtonica.jpeg",
@@ -37,6 +69,7 @@ const experiences = [
     dates: "Sept 2025 — Jan 2026",
     description:
       "Scaled an LLM-powered civic-tech assistant from 70% to 94% accuracy using Node.js, TypeScript, and LangChain. Designed APIs with JWT authentication and Stripe integration, making municipal by-laws accessible to residents and businesses.",
+    highlights: ["70% to 94% accuracy"],
   },
   {
     logo: "/images/compsa.jpeg",
@@ -47,6 +80,7 @@ const experiences = [
     dates: "April 2025 — Present",
     description:
       "Leading a 14-member tech team building digital products for 1,800+ students. Directed 6 major projects accumulating 7,800+ users, including a room booking platform, e-commerce store, computing clubs hub, and AI chatbot.",
+    highlights: ["14-member tech team", "7,800+ users"],
   },
 ];
 
@@ -184,7 +218,7 @@ export default function Experience() {
                     ease: [0.25, 0.46, 0.45, 0.94],
                   }}
                 >
-                  {exp.description}
+                  {highlightDescription(exp.description, exp.highlights)}
                 </motion.p>
               </div>
             </motion.div>
