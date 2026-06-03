@@ -9,9 +9,9 @@ const projects = [
     description:
       "a custom e-commerce platform for Queen's University's Computing Students' Association",
     detailLeft:
-      "Merch Store is a full-stack e-commerce platform I led our Tech Team to build from scratch, giving Queen's Computing students a seamless way to browse, purchase, and pick up official club merchandise. It replaces a generic third-party storefront with purpose-built infrastructure tailored to how a student association actually operates.",
+      "Merch Store is a full-stack e-commerce platform I led our Tech Team to build from scratch so Queen's Computing students can browse, buy, and pick up club merch. It replaces a generic third-party storefront with purpose-built infrastructure.",
     detailRight:
-      "The platform runs on Next.js and Supabase with Stripe checkout, real-time inventory sync, and automated transactional emails. A campus pickup slot system and an admin dashboard for per-variant stock control make fulfillment structured and predictable, turning merch season from a logistics headache into a repeatable process.",
+      "The platform runs on Next.js and Supabase with Stripe checkout, live inventory sync, and automated transactional emails. A campus pickup slot system and per-variant admin stock controls make merch season a repeatable process.",
     tags: ["Full-Stack", "AI/ML", "Leadership"],
     link: "https://merch.compsa.ca/",
     images: [
@@ -27,9 +27,9 @@ const projects = [
     description:
       "a SaaS platform that places strategic comments on YouTube videos to influence purchase decisions",
     detailLeft:
-      "TubeWatcher is a full-stack SaaS platform I built that helps brands reach buyers where they actually make decisions: the comment sections of YouTube product reviews. It identifies high-opportunity videos, analyzes their content with AI, and generates human-sounding comments designed to influence viewers moments away from purchasing.",
+      "TubeWatcher is a full-stack SaaS platform I built that helps brands engage in the comment sections of YouTube product reviews. It identifies high-opportunity videos, analyzes them with AI, and drafts relevant marketing comments.",
     detailRight:
-      "Trained on a proprietary dataset of 11,000 real YouTube comments across 8 industries, the platform produces output indistinguishable from organic viewers. A scoring formula surfaces videos where a single comment reaches the most eyeballs, and a multi-company dashboard lets clients generate and copy comments in seconds.",
+      "The model is trained on a proprietary dataset of 11,000 real comments across 8 industries. A scoring formula surfaces videos where one comment reaches the most viewers, and a multi-company dashboard lets clients generate comments in seconds.",
     tags: ["Machine Learning", "React", "Python"],
     link: "#",
     images: [
