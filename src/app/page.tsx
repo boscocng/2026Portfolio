@@ -8,6 +8,7 @@ import Experience from "@/components/Experience";
 import PolaroidFan from "@/components/PolaroidFan";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ServeCount from "@/components/ServeCount";
 
 const roles = ["engineer", "student", "builder", "leader", "musician"];
 
@@ -66,7 +67,7 @@ export default function Home() {
             </span>
             <br />
             <span style={{ fontFamily: "var(--font-season-mix)" }}>
-              serve thousands.
+              serve <ServeCount />
             </span>
           </h1>
         </motion.div>
