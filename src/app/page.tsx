@@ -25,7 +25,8 @@ export default function Home() {
   return (
     <main className="relative flex flex-col items-center justify-start overflow-hidden bg-black">
       {/* ── Hero section — full viewport ── */}
-      <section className="relative flex h-screen w-full flex-col items-center justify-start">
+      {/* overflow-visible so the polaroids' hover glow + corner badge are never clipped */}
+      <section className="relative flex h-screen w-full flex-col items-center justify-start overflow-visible">
         {/* Subtle radial glow behind the scene */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_40%,rgba(120,80,200,0.08),transparent)]" />
 

@@ -6,6 +6,7 @@ import {
   useSpring,
   useMotionValue,
   useTransform,
+  useReducedMotion,
 } from "framer-motion";
 import Image from "next/image";
 
@@ -46,11 +47,14 @@ function Polaroid({
 }) {
   const px = useTransform(smoothX, (v) => v * parallaxFactor);
   const py = useTransform(smoothY, (v) => v * parallaxFactor);
+  const reduceMotion = useReducedMotion();
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       className="absolute"
-      style={{ zIndex }}
+      // Raise the hovered polaroid above its siblings while popped.
+      style={{ zIndex: hovered ? 50 : zIndex }}
       initial={{ x: 0, y: 40, rotate: 0, opacity: 0, scale: 0.9 }}
       animate={{ x: xOffset, y: 0, rotate: rotation, opacity: 1, scale: 1 }}
       transition={{
@@ -70,21 +74,72 @@ function Polaroid({
             ease: "easeInOut",
           }}
         >
-          <div
-            className="rounded-sm bg-white shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
-            style={{ padding: "10px 10px 36px 10px" }}
+          {/* Pop wrapper — owns this polaroid's hover state and inherits the
+              tilt from its ancestors, so the glow and badge tilt with it.
+              `isolate` scopes the layer z-indexes below. */}
+          <motion.div
+            className="relative isolate"
+            onHoverStart={() => setHovered(true)}
+            onHoverEnd={() => setHovered(false)}
+            initial={false}
+            animate={{
+              scale: hovered && !reduceMotion ? 1.05 : 1,
+              y: hovered && !reduceMotion ? -8 : 0,
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 22 }}
           >
-            <div className="relative w-[160px] h-[200px] md:w-[220px] md:h-[270px] lg:w-[240px] lg:h-[300px] overflow-hidden rounded-sm">
+            {/* Soft outward bloom, behind the opaque frame. */}
+            <div
+              aria-hidden
+              className={`beam-bloom pointer-events-none absolute -inset-[6px] -z-10 rounded-md transition-opacity duration-300 ${
+                hovered ? "opacity-100" : "opacity-0"
+              }`}
+            />
+
+            <div
+              className="rounded-sm bg-white shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
+              style={{ padding: "10px 10px 36px 10px" }}
+            >
+              <div className="relative w-[160px] h-[200px] md:w-[220px] md:h-[270px] lg:w-[240px] lg:h-[300px] overflow-hidden rounded-sm">
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 220px, 240px"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Thin traveling glow line that hugs the frame's edge. */}
+            <div
+              aria-hidden
+              className={`beam-ring pointer-events-none absolute inset-0 z-20 rounded-sm transition-opacity duration-300 ${
+                hovered ? "opacity-100" : "opacity-0"
+              }`}
+            />
+
+            {/* Cansbridge badge, overlapping the top-left corner. */}
+            <div
+              aria-hidden={!hovered}
+              className={`pointer-events-none absolute z-30 h-11 w-11 overflow-hidden rounded-full shadow-[0_0_0_2px_rgba(196,181,253,0.7),0_0_16px_4px_rgba(139,92,246,0.55)] transition-opacity duration-300 ${
+                hovered ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ top: "-22px", left: "-22px" }}
+            >
               <Image
-                src={src}
-                alt={alt}
+                src="/images/cansbridgescholars_logo.jpeg"
+                alt="Cansbridge Scholars"
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 160px, (max-width: 1024px) 220px, 240px"
-                priority
+                sizes="44px"
+                // Tiny asset in the initial viewport — load up front (not lazy)
+                // so the logo is ready before the first hover.
+                loading="eager"
               />
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </motion.div>
     </motion.div>
