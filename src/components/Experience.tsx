@@ -50,17 +50,6 @@ const experiences = [
     highlights: ["$0 to $8M ARR in 6 months"],
   },
   {
-    logo: "/images/flores.jpg",
-    role: "Founder",
-    company: "Flores AI",
-    link: "https://www.linkedin.com/company/flores-ai/",
-    location: "San Francisco, CA",
-    dates: "June 2026 — Present",
-    description:
-      "Founding an AI trading journal that answers any question about a trader's full history in plain English. Building an AI agent that fetches live market data on demand to compute real answers no journal can match.",
-    highlights: ["AI trading journal", "plain English", "AI agent", "no journal can match"],
-  },
-  {
     logo: "/images/cansbridge.jpeg",
     role: "Scholar",
     company: "Cansbridge Scholars",
