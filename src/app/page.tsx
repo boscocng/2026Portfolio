@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
 import PolaroidFan from "@/components/PolaroidFan";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ServeCount from "@/components/ServeCount";
 
@@ -84,9 +83,6 @@ export default function Home() {
 
       {/* ── Experience section ── */}
       <Experience />
-
-      {/* ── Contact section ── */}
-      <Contact />
 
       {/* ── Footer ── */}
       <Footer />

@@ -48,7 +48,10 @@ function handleNavClick(
       : (document.querySelector(href)?.getBoundingClientRect().top ?? 0) +
         window.scrollY;
 
-  smoothScrollTo(target);
+  // The footer's top sits below the furthest reachable scroll position. Aim for that
+  // limit instead, or the spring hits the page bottom at full speed and stops dead.
+  const maxY = document.documentElement.scrollHeight - window.innerHeight;
+  smoothScrollTo(Math.min(target, maxY));
 }
 
 export default function Navbar() {

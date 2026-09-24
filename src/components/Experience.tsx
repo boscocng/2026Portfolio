@@ -7,8 +7,8 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-// Translucent wash of the Contact submit-button pink (#FFA5C6) — a soft highlighter
-// reserved for the highest-signal facts: quantified impact and marquee credentials.
+// Translucent wash of pink (#FFA5C6), a soft highlighter reserved for the
+// highest-signal facts: quantified impact and marquee credentials.
 const HIGHLIGHT = "rgba(255, 165, 198, 0.4)";
 
 function highlightDescription(text: string, phrases: string[]) {

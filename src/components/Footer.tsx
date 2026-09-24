@@ -16,7 +16,7 @@ const fadeUp = {
 export default function Footer() {
   return (
     // The tall bottom padding keeps the social links clear of the fixed bottom navbar.
-    <footer className="relative w-full bg-black pt-8 pb-35">
+    <footer id="contact" className="relative w-full bg-black pt-8 pb-35">
       <motion.div
         className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8 flex flex-col items-center"
         initial="hidden"
