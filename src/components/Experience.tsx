@@ -50,6 +50,17 @@ const experiences = [
     highlights: ["$0 to $8M ARR in 6 months"],
   },
   {
+    logo: "/images/pobi.jpeg",
+    role: "Founder",
+    company: "Pobi",
+    link: "https://www.pobi.bet/",
+    location: "Toronto, ON",
+    dates: "Aug 2026 – Present",
+    description:
+      "Founded Pobi, an AI-powered prediction markets analyzer that hit 100+ users and $1.5K MRR in 31 days. Built a pricing engine for correlated same-game parlays on live odds from 9 sportsbooks, AI screenshot and voice intake, and automated bet settlement.",
+    highlights: ["100+ users and $1.5K MRR in 31 days"],
+  },
+  {
     logo: "/images/cansbridge.jpeg",
     role: "Scholar",
     company: "Cansbridge Scholars",
