@@ -121,7 +121,12 @@ export default function Experience() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ staggerChildren: 0.1 }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr_minmax(0,280px)] gap-6 lg:gap-10 items-start">
+              <a
+                href={exp.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid grid-cols-1 lg:grid-cols-[auto_1fr_minmax(0,280px)] gap-6 lg:gap-10 items-start transition-opacity hover:opacity-70"
+              >
                 {/* Logo */}
                 <motion.div
                   className="flex-shrink-0"
@@ -175,18 +180,14 @@ export default function Experience() {
                     >
                       {exp.role}
                     </span>{" "}
-                    <a
-                      href={exp.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="transition-opacity hover:opacity-70"
+                    <span
                       style={{
                         fontFamily: "var(--font-season-mix)",
                         fontWeight: 400,
                       }}
                     >
                       {exp.company}
-                    </a>
+                    </span>
                   </p>
                   <p
                     className="mt-2"
@@ -220,7 +221,7 @@ export default function Experience() {
                 >
                   {highlightDescription(exp.description, exp.highlights)}
                 </motion.p>
-              </div>
+              </a>
             </motion.div>
 
             {i < experiences.length - 1 && (
