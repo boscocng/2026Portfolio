@@ -15,7 +15,8 @@ const fadeUp = {
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-black pt-8 pb-6">
+    // The tall bottom padding keeps the social links clear of the fixed bottom navbar.
+    <footer className="relative w-full bg-black pt-8 pb-35">
       <motion.div
         className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8 flex flex-col items-center"
         initial="hidden"
@@ -41,7 +42,7 @@ export default function Footer() {
 
         {/* Social links */}
         <motion.div
-          className="flex flex-wrap items-baseline justify-center gap-x-12 md:gap-x-16 gap-y-4 mb-20"
+          className="flex flex-wrap items-baseline justify-center gap-x-12 md:gap-x-16 gap-y-4"
           variants={fadeUp}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
@@ -70,25 +71,6 @@ export default function Footer() {
             </a>
           ))}
         </motion.div>
-
-        {/* Divider */}
-        <div className="w-full h-px bg-white/10 mb-5" />
-
-        {/* Copyright */}
-        <motion.p
-          style={{
-            fontFamily: "var(--font-season-sans)",
-            fontWeight: 600,
-            fontSize: "12px",
-            lineHeight: "15.6px",
-            letterSpacing: "0px",
-            color: "#FFFFFF",
-          }}
-          variants={fadeUp}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          Bosco Ng &copy; 2026
-        </motion.p>
       </motion.div>
     </footer>
   );
