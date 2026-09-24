@@ -44,7 +44,7 @@ const experiences = [
     company: "Clover Labs",
     link: "https://cloverlabs.ai/",
     location: "Toronto, ON",
-    dates: "May 2026 — Present",
+    dates: "May 2026 – Present",
     description:
       "Building AI-powered vertical SaaS products at Canada's fastest-growing startup, which scaled from $0 to $8M ARR in 6 months. Developing web scrapers, customer-facing dashboards, and fine-tuned LLMs for SEO-optimized content generation.",
     highlights: ["$0 to $8M ARR in 6 months"],
@@ -55,7 +55,7 @@ const experiences = [
     company: "Cansbridge Scholars",
     link: "https://www.cansbridgescholars.com/",
     location: "San Francisco, CA",
-    dates: "Jan 2026 — April 2026",
+    dates: "Jan 2026 – April 2026",
     description:
       "Selected as 1 of 17 scholars in an elite 8-week entrepreneurship fellowship for Canada's top students. Built and pitched a venture project, mentored by Peter Thiel Fellows and YC-backed founders.",
     highlights: ["1 of 17", "Peter Thiel Fellows and YC-backed founders"],
@@ -66,7 +66,7 @@ const experiences = [
     company: "Lawtonica",
     link: "https://lawtonica.ca/",
     location: "Kingston, ON",
-    dates: "Sept 2025 — Jan 2026",
+    dates: "Sept 2025 – Jan 2026",
     description:
       "Scaled an LLM-powered civic-tech assistant from 70% to 94% accuracy using Node.js, TypeScript, and LangChain. Designed APIs with JWT authentication and Stripe integration, making municipal by-laws accessible to residents and businesses.",
     highlights: ["70% to 94% accuracy"],
@@ -77,7 +77,7 @@ const experiences = [
     company: "Queen's University Computing Students' Association",
     link: "https://compsa.ca/",
     location: "Kingston, ON",
-    dates: "April 2025 — Present",
+    dates: "April 2025 – Present",
     description:
       "Leading a 14-member tech team building digital products for 1,800+ students. Directed 6 major projects accumulating 7,800+ users, including a room booking platform, e-commerce store, computing clubs hub, and AI chatbot.",
     highlights: ["14-member tech team", "7,800+ users"],
