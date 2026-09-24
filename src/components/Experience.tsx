@@ -62,7 +62,7 @@ const experiences = [
   },
   {
     logo: "/images/lawtonica.jpeg",
-    role: "AI/ML Engineer Intern",
+    role: "AI Engineer Intern",
     company: "Lawtonica",
     link: "https://lawtonica.ca/",
     location: "Kingston, ON",
