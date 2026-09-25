@@ -10,27 +10,88 @@ const navLinks: { label: string; href: string; external?: boolean }[] = [
 
 // Track the in-flight scroll so rapid clicks hand off instead of fighting.
 let scrollControls: ReturnType<typeof animate> | null = null;
+let settleFrame = 0;
 
-function smoothScrollTo(targetY: number) {
+// Settling ends once the landing spot has held still this many frames, or after the cap.
+const SETTLE_STILL_FRAMES = 20;
+const SETTLE_MAX_FRAMES = 150;
+const USER_SCROLL_EVENTS = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+
+/** Where a link lands: its target's live position, capped at the furthest reachable scroll. */
+function landingFor(href: string): number {
+  const top =
+    href === "#"
+      ? 0
+      : (document.querySelector(href)?.getBoundingClientRect().top ?? 0) +
+        window.scrollY;
+  // The footer's top sits below the furthest reachable scroll position. Aim for that
+  // limit instead, or the spring hits the page bottom at full speed and stops dead.
+  const maxY = document.documentElement.scrollHeight - window.innerHeight;
+  return Math.min(top, maxY);
+}
+
+/**
+ * Holds the landing spot while the project cards finish opening or closing, because their height
+ * changes move everything below them after the scroll has arrived. Any scroll by the visitor ends it.
+ */
+function settle(goal: () => number) {
+  let still = 0;
+  let frames = 0;
+  const stop = () => {
+    cancelAnimationFrame(settleFrame);
+    USER_SCROLL_EVENTS.forEach((type) => window.removeEventListener(type, stop));
+  };
+  USER_SCROLL_EVENTS.forEach((type) =>
+    window.addEventListener(type, stop, { passive: true }),
+  );
+  const step = () => {
+    const y = goal();
+    if (Math.abs(y - window.scrollY) >= 1) {
+      window.scrollTo(0, y);
+      still = 0;
+    } else {
+      still++;
+    }
+    if (still < SETTLE_STILL_FRAMES && ++frames < SETTLE_MAX_FRAMES) {
+      settleFrame = requestAnimationFrame(step);
+    } else {
+      stop();
+    }
+  };
+  settleFrame = requestAnimationFrame(step);
+}
+
+function smoothScrollTo(goal: () => number) {
+  scrollControls?.stop();
+  cancelAnimationFrame(settleFrame);
   const startY = window.scrollY;
-  if (Math.abs(targetY - startY) < 1) return;
+  const firstGoal = goal();
 
   // Honor reduced-motion preferences with an instant jump.
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    window.scrollTo(0, targetY);
+  if (
+    Math.abs(firstGoal - startY) < 1 ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    window.scrollTo(0, firstGoal);
+    settle(goal);
     return;
   }
 
   // A spring gives the motion real momentum: it accelerates from rest, peaks
   // mid-flight (faster the farther it travels), then glides to a soft stop.
-  scrollControls?.stop();
-  scrollControls = animate(startY, targetY, {
+  scrollControls = animate(startY, firstGoal, {
     type: "spring",
     stiffness: 120,
     damping: 18,
     mass: 1,
     restDelta: 0.5,
-    onUpdate: (y) => window.scrollTo(0, y),
+    // Project cards open and close as the page passes them, moving everything below, so each
+    // frame re-aims the same share of the journey at wherever the target is now.
+    onUpdate: (y) => {
+      const progress = (y - startY) / (firstGoal - startY);
+      window.scrollTo(0, y + (goal() - firstGoal) * progress);
+    },
+    onComplete: () => settle(goal),
   });
 }
 
@@ -41,17 +102,7 @@ function handleNavClick(
   // Only intercept in-page anchor links; let real links (e.g. the résumé) behave normally.
   if (!href.startsWith("#")) return;
   e.preventDefault();
-
-  const target =
-    href === "#"
-      ? 0
-      : (document.querySelector(href)?.getBoundingClientRect().top ?? 0) +
-        window.scrollY;
-
-  // The footer's top sits below the furthest reachable scroll position. Aim for that
-  // limit instead, or the spring hits the page bottom at full speed and stops dead.
-  const maxY = document.documentElement.scrollHeight - window.innerHeight;
-  smoothScrollTo(Math.min(target, maxY));
+  smoothScrollTo(() => landingFor(href));
 }
 
 export default function Navbar() {

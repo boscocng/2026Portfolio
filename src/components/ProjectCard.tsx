@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import DemoVideo, { type DemoVideoHandle } from "./DemoVideo";
 import ImageCarousel, { type CarouselItem } from "./ImageCarousel";
+import { useCardReveal } from "./useCardReveal";
 
 interface ProjectCardProps {
   title: string;
@@ -65,11 +66,16 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const demoRef = useRef<DemoVideoHandle>(null);
   const openDemo = () => demoRef.current?.open();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const infoRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselHeight = useCardReveal(cardRef, infoRef, carouselRef);
 
   return (
-    <div className="w-full">
+    <div ref={cardRef} className="w-full">
       {/* Info section */}
       <motion.div
+        ref={infoRef}
         className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8 pb-10"
         initial="hidden"
         whileInView="visible"
@@ -198,15 +204,26 @@ export default function ProjectCard({
         </div>
       </motion.div>
 
-      {/* Image carousel — aligned with content */}
+      {/*
+        Opens as the card scrolls up and folds away once it has been passed. Held open by CSS
+        under reduced motion and when printing, where the inline height would clip it.
+      */}
       <motion.div
-        className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="overflow-hidden motion-reduce:h-auto! print:h-auto!"
+        style={{ height: carouselHeight }}
       >
-        <ImageCarousel images={images} />
+        <div ref={carouselRef}>
+          {/* Image carousel — aligned with content */}
+          <motion.div
+            className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <ImageCarousel images={images} />
+          </motion.div>
+        </div>
       </motion.div>
 
       {demoVideo && (
