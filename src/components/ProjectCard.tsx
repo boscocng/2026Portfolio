@@ -1,7 +1,9 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
-import ImageCarousel from "./ImageCarousel";
+import DemoVideo, { type DemoVideoHandle } from "./DemoVideo";
+import ImageCarousel, { type CarouselItem } from "./ImageCarousel";
 
 interface ProjectCardProps {
   title: string;
@@ -10,13 +12,46 @@ interface ProjectCardProps {
   detailRight: string;
   tags: string[];
   link: string;
-  images: { width: number; color?: string }[];
+  images: CarouselItem[];
+  /** When set, a Watch Demo button opens this video in a macOS-style window. */
+  demoVideo?: { src: string; aspectRatio: number };
 }
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 },
 };
+
+// Shared by the Visit Project, See Full Case and Watch Demo pills.
+const ACTION_CLASS =
+  "items-center gap-1.5 rounded-full border border-white/[0.06] px-3.5 py-1.5 transition-colors hover:bg-white/[0.15]";
+const ACTION_STYLE = {
+  fontFamily: "var(--font-season-sans)",
+  fontSize: "12px",
+  lineHeight: "15.6px",
+  fontWeight: 600,
+  color: "#FFFFFF",
+  background: "#323332",
+};
+
+function WatchDemoButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-flex cursor-pointer ${ACTION_CLASS}`}
+      style={ACTION_STYLE}
+    >
+      Watch Demo
+      {/* h-5 matches the text-sm line box around the Visit Project arrow, so both pills are one height. */}
+      <span className="flex h-5 items-center">
+        <svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true">
+          <path d="M0 0.5v8l7.5-4z" fill="currentColor" />
+        </svg>
+      </span>
+    </button>
+  );
+}
 
 export default function ProjectCard({
   title,
@@ -26,7 +61,11 @@ export default function ProjectCard({
   tags,
   link,
   images,
+  demoVideo,
 }: ProjectCardProps) {
+  const demoRef = useRef<DemoVideoHandle>(null);
+  const openDemo = () => demoRef.current?.open();
+
   return (
     <div className="w-full">
       {/* Info section */}
@@ -60,23 +99,19 @@ export default function ProjectCard({
               </span>
             ))}
           </div>
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:flex flex-shrink-0 items-center gap-1.5 rounded-full border border-white/[0.06] px-3.5 py-1.5 transition-colors hover:bg-white/[0.15]"
-            style={{
-              fontFamily: "var(--font-season-sans)",
-              fontSize: "12px",
-              lineHeight: "15.6px",
-              fontWeight: 600,
-              color: "#FFFFFF",
-              background: "#323332",
-            }}
-          >
-            Visit Project
-            <span className="text-sm">&#x2197;</span>
-          </a>
+          <div className="hidden sm:flex flex-shrink-0 items-center gap-2">
+            {demoVideo && <WatchDemoButton onClick={openDemo} />}
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex ${ACTION_CLASS}`}
+              style={ACTION_STYLE}
+            >
+              Visit Project
+              <span className="text-sm">&#x2197;</span>
+            </a>
+          </div>
         </motion.div>
 
         {/* Title + Description + Detail columns */}
@@ -147,24 +182,20 @@ export default function ProjectCard({
           </motion.p>
         </div>
 
-        {/* Mobile: See Full Case */}
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="sm:hidden mt-6 inline-flex items-center gap-1.5 rounded-full border border-white/[0.06] px-3.5 py-1.5 transition-colors hover:bg-white/[0.15]"
-          style={{
-            fontFamily: "var(--font-season-sans)",
-            fontSize: "12px",
-            lineHeight: "15.6px",
-            fontWeight: 600,
-            color: "#FFFFFF",
-            background: "#323332",
-          }}
-        >
-          See Full Case
-          <span className="text-sm">&#x2197;</span>
-        </a>
+        {/* Mobile: Watch Demo + See Full Case */}
+        <div className="sm:hidden mt-6 flex items-center gap-2">
+          {demoVideo && <WatchDemoButton onClick={openDemo} />}
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex ${ACTION_CLASS}`}
+            style={ACTION_STYLE}
+          >
+            See Full Case
+            <span className="text-sm">&#x2197;</span>
+          </a>
+        </div>
       </motion.div>
 
       {/* Image carousel — aligned with content */}
@@ -177,6 +208,15 @@ export default function ProjectCard({
       >
         <ImageCarousel images={images} />
       </motion.div>
+
+      {demoVideo && (
+        <DemoVideo
+          ref={demoRef}
+          src={demoVideo.src}
+          aspectRatio={demoVideo.aspectRatio}
+          title={`${title.replace(/:$/, "")} Demo`}
+        />
+      )}
     </div>
   );
 }

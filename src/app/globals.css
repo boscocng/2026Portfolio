@@ -32,11 +32,38 @@
   --font-mono: var(--font-season-mix);
 }
 
+/*
+ * The demo window's open animation, traced from AppKit: a new document window scales up from its
+ * own centre while fading in, both linear over 200ms. The backdrop fades in alongside it.
+ */
+@theme {
+  --animate-mac-window-open: mac-window-open 200ms linear both;
+  --animate-mac-fade-in: mac-fade-in 200ms linear both;
+
+  @keyframes mac-window-open {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes mac-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-season-sans);
   overflow-x: hidden;
+}
+
+/* A modal dialog makes the page inert but not still: the wheel would scroll it behind the overlay. */
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 /* Hide scrollbar for cleaner aesthetic */
