@@ -5,6 +5,51 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
+    title: "Pobi:",
+    description:
+      "an AI-powered betting platform that turns sportsbook promos into the highest expected-value parlays",
+    detailLeft:
+      "Pobi is a subscription SaaS I co-founded that tells sports bettors which parlays to place with the promos their sportsbooks offer, priced on live odds from 9 books. It reached 100+ users and $1.5K MRR in 31 days.",
+    detailRight:
+      "A pricing engine fits a score distribution to each game's lines to price correlated same-game parlays. GPT vision and Whisper read promos from screenshots and voice, and a Cloudflare cron auto-settles bets across 8 leagues.",
+    tags: ["Full-Stack", "AI/ML", "Startup"],
+    link: "https://www.pobi.bet/",
+    // The founders' intro from pobi.bet/welcome, served from Pobi's public storage bucket.
+    demoVideo: {
+      src: "https://arnoboqouzoynghefvhf.supabase.co/storage/v1/object/public/logo/pobi-intro.mp4",
+      aspectRatio: 16 / 9,
+    },
+    images: [
+      {
+        width: 350,
+        src: "/images/projects/pobi/pobi-scroll.webp",
+        video: "/images/projects/pobi/pobi-scroll.mp4",
+        alt: "The Pobi landing page scrolling in a window over a pine canopy",
+      },
+      {
+        width: 350,
+        src: "/images/projects/pobi/pobi-laptop.webp",
+        alt: "The Pobi app on a MacBook resting on sunlit stone steps",
+      },
+      {
+        width: 350,
+        src: "/images/projects/pobi/pobi-slides.webp",
+        video: "/images/projects/pobi/pobi-slides.mp4",
+        alt: "Sections of the Pobi site cycling on black",
+      },
+      {
+        width: 350,
+        src: "/images/projects/pobi/pobi-mountains.webp",
+        alt: "Pobi's track record section floating over green mountains",
+      },
+      {
+        width: 350,
+        src: "/images/projects/pobi/pobi-phone.webp",
+        alt: "Pobi's boost intake chat on an iPhone in dappled leaf shadow",
+      },
+    ],
+  },
+  {
     title: "Merch Store:",
     description:
       "a custom e-commerce platform for Queen's University's Computing Students' Association",
@@ -14,48 +59,39 @@ const projects = [
       "The platform runs on Next.js and Supabase with Stripe checkout, live inventory sync, and automated transactional emails. A campus pickup slot system and per-variant admin stock controls make merch season a repeatable process.",
     tags: ["Full-Stack", "AI/ML", "Leadership"],
     link: "https://merch.compsa.ca/",
+    // The store walkthrough, a 1280x960 screen recording in the same public bucket as Pobi's intro.
+    demoVideo: {
+      src: "https://arnoboqouzoynghefvhf.supabase.co/storage/v1/object/public/logo/COMPSA%20Merch%20Store%20Demo%20(compressed).mp4",
+      aspectRatio: 4 / 3,
+    },
     images: [
-      { width: 320, color: "#2a2a2a" },
-      { width: 380, color: "#1e1e1e" },
-      { width: 400, color: "#252525" },
-      { width: 340, color: "#222" },
-      { width: 360, color: "#2c2c2c" },
-    ],
-  },
-  {
-    title: "TubeWatcher:",
-    description:
-      "a SaaS platform that places strategic comments on YouTube videos to influence purchase decisions",
-    detailLeft:
-      "TubeWatcher is a full-stack SaaS platform I built that helps brands engage in the comment sections of YouTube product reviews. It identifies high-opportunity videos, analyzes them with AI, and drafts relevant marketing comments.",
-    detailRight:
-      "The model is trained on a proprietary dataset of 11,000 real comments across 8 industries. A scoring formula surfaces videos where one comment reaches the most viewers, and a multi-company dashboard lets clients generate comments in seconds.",
-    tags: ["Machine Learning", "React", "Python"],
-    link: "#",
-    images: [
-      { width: 360, color: "#1f1f2e" },
-      { width: 420, color: "#2a1f2e" },
-      { width: 300, color: "#1e2a2e" },
-      { width: 380, color: "#2e2a1f" },
-      { width: 340, color: "#1f2e2a" },
-    ],
-  },
-  {
-    title: "Pulse Analytics:",
-    description:
-      "a real-time dashboard platform for monitoring distributed systems at scale",
-    detailLeft:
-      "Pulse Analytics was built to replace fragmented monitoring across a fleet of 200+ microservices. It aggregates logs, metrics, and traces into a unified timeline view, letting engineering teams diagnose incidents in seconds instead of minutes.",
-    detailRight:
-      "The platform handles 50k events/sec through a Kafka-backed ingestion pipeline with ClickHouse for sub-second queries. The frontend uses Next.js with WebGL-powered visualizations that render millions of data points without jank.",
-    tags: ["TypeScript", "Go", "Infrastructure"],
-    link: "#",
-    images: [
-      { width: 400, color: "#1e1e2a" },
-      { width: 340, color: "#2a2a1e" },
-      { width: 380, color: "#1e2a1e" },
-      { width: 320, color: "#2a1e2a" },
-      { width: 360, color: "#222a2a" },
+      {
+        width: 350,
+        src: "/images/projects/merch/merch-scroll.webp",
+        video: "/images/projects/merch/merch-scroll.mp4",
+        alt: "The COMPSA Merch Store home page scrolling in a window above a misty lake",
+      },
+      {
+        width: 350,
+        src: "/images/projects/merch/merch-laptop.webp",
+        alt: "The merch catalog on a MacBook on a picnic table covered in autumn leaves",
+      },
+      {
+        width: 350,
+        src: "/images/projects/merch/merch-slides.webp",
+        video: "/images/projects/merch/merch-slides.mp4",
+        alt: "Pages of the merch store cycling on oxblood, from catalog to pickup slots",
+      },
+      {
+        width: 350,
+        src: "/images/projects/merch/merch-hills.webp",
+        alt: "The grey hoodie product page floating over autumn hills and a river",
+      },
+      {
+        width: 350,
+        src: "/images/projects/merch/merch-phone.webp",
+        alt: "The merch store home page on an iPhone lying in fallen maple leaves",
+      },
     ],
   },
 ];
