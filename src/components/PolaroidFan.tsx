@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import {
   motion,
   useSpring,
@@ -10,11 +10,24 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 
+// `phoneX` is the tighter fan used below Tailwind's `sm` breakpoint, where ±220px would push the
+// outer polaroids off the screen.
 const polaroids = [
-  { src: "/images/pic2.jpg", alt: "Bosco 2", rotation: -8, x: -220, delay: 0, parallax: 8 },
-  { src: "/images/pic3.jpg", alt: "Bosco 3", rotation: 8, x: 220, delay: 0.1, parallax: 10 },
-  { src: "/images/pic1.jpg", alt: "Bosco 1", rotation: 0, x: 0, delay: 0.05, parallax: 15 },
+  { src: "/images/pic2.jpg", alt: "Bosco 2", rotation: -8, x: -220, phoneX: -70, delay: 0, parallax: 8 },
+  { src: "/images/pic3.jpg", alt: "Bosco 3", rotation: 8, x: 220, phoneX: 70, delay: 0.1, parallax: 10 },
+  { src: "/images/pic1.jpg", alt: "Bosco 1", rotation: 0, x: 0, phoneX: 0, delay: 0.05, parallax: 15 },
 ];
+
+// Tailwind's `max-sm` range, so the fan tightens exactly when the polaroids shrink to phone size.
+const PHONE_QUERY = "(width < 40rem)";
+
+function subscribeToPhone(onChange: () => void) {
+  const query = window.matchMedia(PHONE_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+const isPhone = () => window.matchMedia(PHONE_QUERY).matches;
 
 const floatConfigs = [
   { y: [0, -8, 0, 6, 0], rotate: [-8, -9.5, -6.5, -8.5, -8], duration: 5 },
@@ -92,13 +105,13 @@ function Polaroid({
               className="rounded-sm bg-white shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
               style={{ padding: "10px 10px 36px 10px" }}
             >
-              <div className="relative w-[160px] h-[200px] md:w-[220px] md:h-[270px] lg:w-[240px] lg:h-[300px] overflow-hidden rounded-sm">
+              <div className="relative w-[160px] h-[200px] max-sm:w-[130px] max-sm:h-[162px] md:w-[220px] md:h-[270px] lg:w-[240px] lg:h-[300px] overflow-hidden rounded-sm">
                 <Image
                   src={src}
                   alt={alt}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 160px, (max-width: 1024px) 220px, 240px"
+                  sizes="(max-width: 640px) 130px, (max-width: 768px) 160px, (max-width: 1024px) 220px, 240px"
                   priority
                 />
               </div>
@@ -132,6 +145,7 @@ function Polaroid({
 
 export default function PolaroidFan() {
   const [mounted, setMounted] = useState(false);
+  const phone = useSyncExternalStore(subscribeToPhone, isPhone, () => false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
@@ -159,7 +173,7 @@ export default function PolaroidFan() {
           src={p.src}
           alt={p.alt}
           rotation={p.rotation}
-          xOffset={p.x}
+          xOffset={phone ? p.phoneX : p.x}
           delay={p.delay}
           parallaxFactor={p.parallax}
           floatConfig={floatConfigs[i]}
