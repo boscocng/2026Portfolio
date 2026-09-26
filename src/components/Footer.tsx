@@ -40,9 +40,10 @@ export default function Footer() {
           Connect with me:
         </motion.p>
 
-        {/* Social links */}
+        {/* Social links. Phones stack them in a centred column, as poch.studio does, where a
+            wrapping row would leave Twitter alone under the other two. */}
         <motion.div
-          className="flex flex-wrap items-baseline justify-center gap-x-12 md:gap-x-16 gap-y-4"
+          className="flex flex-wrap items-baseline justify-center gap-x-12 md:gap-x-16 gap-y-4 max-sm:flex-col max-sm:items-center max-sm:gap-y-2.5"
           variants={fadeUp}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
@@ -52,11 +53,10 @@ export default function Footer() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white transition-opacity hover:opacity-70"
+              className="text-[length:clamp(32px,5vw,50px)] text-white transition-opacity hover:opacity-70 max-sm:text-[2.5rem]"
               style={{
                 fontFamily: "var(--font-season-sans)",
                 fontWeight: 600,
-                fontSize: "clamp(32px, 5vw, 50px)",
                 lineHeight: "1",
                 letterSpacing: "0px",
               }}
