@@ -108,7 +108,9 @@ function handleNavClick(
 export default function Navbar() {
   return (
     <motion.nav
-      className="fixed bottom-16 left-1/2 z-50 -translate-x-1/2 scale-100 origin-bottom"
+      // Phones get the same nav at 86%, scaled from its bottom edge so it keeps its place. That brings
+      // the pills to about 38px tall and the whole bar inside a 360px screen, which the full size overran.
+      className="fixed bottom-16 left-1/2 z-50 -translate-x-1/2 scale-100 origin-bottom max-sm:scale-[0.86]"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1.6, ease: [0.25, 0.46, 0.45, 0.94] }}

@@ -27,7 +27,7 @@ export default function Home() {
       {/* overflow-visible so the polaroids' hover glow + corner badge are never clipped */}
       {/* On phones the hero fills the height the browser's toolbars leave visible (svh) and keeps the
           floating nav's strip clear, so the polaroids centre between the headline and the nav. */}
-      <section className="relative flex h-screen w-full flex-col items-center justify-start overflow-visible max-sm:h-auto max-sm:min-h-svh max-sm:pb-28">
+      <section className="relative flex h-screen w-full flex-col items-center justify-start overflow-visible max-sm:h-auto max-sm:min-h-svh max-sm:pb-27">
         {/* Subtle radial glow behind the scene */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_40%,rgba(120,80,200,0.08),transparent)]" />
 
