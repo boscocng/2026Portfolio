@@ -5,7 +5,7 @@ import { animate, motion } from "framer-motion";
 const navLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
-  { label: "Resume", href: "/Bosco_Ng_Resume.pdf", external: true },
+  { label: "Community", href: "#community" },
 ];
 
 // Track the in-flight scroll so rapid clicks hand off instead of fighting.
@@ -99,7 +99,7 @@ function handleNavClick(
   e: React.MouseEvent<HTMLAnchorElement>,
   href: string,
 ) {
-  // Only intercept in-page anchor links; let real links (e.g. the résumé) behave normally.
+  // Only intercept in-page anchor links; let real links (a PDF, another site) behave normally.
   if (!href.startsWith("#")) return;
   e.preventDefault();
   smoothScrollTo(() => landingFor(href));
