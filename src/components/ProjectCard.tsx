@@ -4,14 +4,24 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import DemoVideo, { type DemoVideoHandle } from "./DemoVideo";
 import ImageCarousel, { type CarouselItem } from "./ImageCarousel";
+import LiveCount from "./LiveCount";
 import { useCardReveal } from "./useCardReveal";
+
+interface LiveStatProps {
+  /** Maps a timestamp to the count; see liveCounts.ts. */
+  countAt: (time: number) => number;
+  /** Stays still before the animated digits, such as a currency sign. */
+  prefix?: string;
+  label: string;
+}
 
 interface ProjectCardProps {
   title: string;
   description: string;
   detailLeft: string;
   detailRight: string;
-  tags: string[];
+  /** A live metric shown in the card's top-left corner. */
+  stat: LiveStatProps;
   link: string;
   images: CarouselItem[];
   /** When set, a Watch Demo button opens this video in a macOS-style window. */
@@ -54,12 +64,37 @@ function WatchDemoButton({ onClick }: { onClick: () => void }) {
   );
 }
 
+function LiveStat({ countAt, prefix, label }: LiveStatProps) {
+  return (
+    <span
+      className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] px-3.5 py-1.5"
+      style={{
+        fontFamily: "var(--font-season-sans)",
+        fontSize: "12px",
+        lineHeight: "15.6px",
+        color: "#FFFFFF",
+        background: "#323332",
+      }}
+    >
+      {/* Pulsing dot that marks the number as live */}
+      <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 motion-reduce:animate-none" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+      </span>
+      <span className="whitespace-nowrap">
+        {prefix}
+        <LiveCount countAt={countAt} /> {label}
+      </span>
+    </span>
+  );
+}
+
 export default function ProjectCard({
   title,
   description,
   detailLeft,
   detailRight,
-  tags,
+  stat,
   link,
   images,
   demoVideo,
@@ -82,29 +117,13 @@ export default function ProjectCard({
         viewport={{ once: true, amount: 0.2 }}
         transition={{ staggerChildren: 0.1 }}
       >
-        {/* Tags row + See Full Case */}
+        {/* Live stat + Watch Demo + Visit Project */}
         <motion.div
           className="flex items-center justify-between mb-6"
           variants={fadeUp}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-white/[0.06] px-3.5 py-1.5"
-                style={{
-                  fontFamily: "var(--font-season-sans)",
-                  fontSize: "12px",
-                  lineHeight: "15.6px",
-                  color: "#FFFFFF",
-                  background: "#323332",
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          <LiveStat {...stat} />
           <div className="hidden sm:flex flex-shrink-0 items-center gap-2">
             {demoVideo && <WatchDemoButton onClick={openDemo} />}
             <a

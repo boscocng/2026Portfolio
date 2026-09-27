@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
+import { merchSalesAt, pobiUsersAt } from "./liveCounts";
 
 const projects = [
   {
@@ -12,7 +13,7 @@ const projects = [
       "Pobi is a subscription SaaS I co-founded that tells sports bettors which parlays to place with the promos their sportsbooks offer, priced on live odds from 9 books. It reached 100+ users and $1.5K MRR in 31 days.",
     detailRight:
       "A pricing engine fits a score distribution to each game's lines to price correlated same-game parlays. GPT vision and Whisper read promos from screenshots and voice, and a Cloudflare cron auto-settles bets across 8 leagues.",
-    tags: ["Full-Stack", "AI/ML", "Startup"],
+    stat: { countAt: pobiUsersAt, label: "users" },
     link: "https://www.pobi.bet/",
     // The founders' intro from pobi.bet/welcome, served from Pobi's public storage bucket.
     demoVideo: {
@@ -57,7 +58,7 @@ const projects = [
       "Merch Store is a full-stack e-commerce platform I led our Tech Team to build from scratch so Queen's Computing students can browse, buy, and pick up club merch. It replaces a generic third-party storefront with purpose-built infrastructure.",
     detailRight:
       "The platform runs on Next.js and Supabase with Stripe checkout, live inventory sync, and automated transactional emails. A campus pickup slot system and per-variant admin stock controls make merch season a repeatable process.",
-    tags: ["Full-Stack", "AI/ML", "Leadership"],
+    stat: { countAt: merchSalesAt, prefix: "$", label: "in sales" },
     link: "https://merch.compsa.ca/",
     // The store walkthrough, a 1280x960 screen recording in the same public bucket as Pobi's intro.
     demoVideo: {
