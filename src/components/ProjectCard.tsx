@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import DemoVideo, { type DemoVideoHandle } from "./DemoVideo";
 import ImageCarousel, { type CarouselItem } from "./ImageCarousel";
 import LiveCount from "./LiveCount";
@@ -27,6 +27,10 @@ interface ProjectCardProps {
   /** When set, a Watch Demo button opens this video in a macOS-style window. */
   demoVideo?: { src: string; aspectRatio: number };
 }
+
+// The info block fades up once a fifth of it is on screen, and the live stat starts
+// counting on the same signal, so the count plays as the pill appears.
+const INFO_VIEWPORT = { once: true, amount: 0.2 };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -64,7 +68,12 @@ function WatchDemoButton({ onClick }: { onClick: () => void }) {
   );
 }
 
-function LiveStat({ countAt, prefix, label }: LiveStatProps) {
+function LiveStat({
+  countAt,
+  prefix,
+  label,
+  play,
+}: LiveStatProps & { play: boolean }) {
   return (
     <span
       className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] px-3.5 py-1.5"
@@ -83,7 +92,7 @@ function LiveStat({ countAt, prefix, label }: LiveStatProps) {
       </span>
       <span className="whitespace-nowrap">
         {prefix}
-        <LiveCount countAt={countAt} /> {label}
+        <LiveCount countAt={countAt} play={play} /> {label}
       </span>
     </span>
   );
@@ -105,6 +114,7 @@ export default function ProjectCard({
   const infoRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const carouselHeight = useCardReveal(cardRef, infoRef, carouselRef);
+  const infoInView = useInView(infoRef, INFO_VIEWPORT);
 
   return (
     <div ref={cardRef} className="w-full">
@@ -114,7 +124,7 @@ export default function ProjectCard({
         className="mx-auto max-w-[1400px] px-6 md:px-6 lg:px-8 pb-10"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={INFO_VIEWPORT}
         transition={{ staggerChildren: 0.1 }}
       >
         {/* Live stat + Watch Demo + Visit Project */}
@@ -123,7 +133,7 @@ export default function ProjectCard({
           variants={fadeUp}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <LiveStat {...stat} />
+          <LiveStat {...stat} play={infoInView} />
           <div className="hidden sm:flex flex-shrink-0 items-center gap-2">
             {demoVideo && <WatchDemoButton onClick={openDemo} />}
             <a
