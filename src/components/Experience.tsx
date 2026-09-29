@@ -91,7 +91,7 @@ const community: Entry[] = [
     company: "Cansbridge Scholars",
     link: "https://www.cansbridgescholars.com/",
     location: "San Francisco, CA",
-    dates: "Jan 2026 – April 2026",
+    dates: "Feb 2026 – May 2026",
     description:
       "Selected as 1 of 17 scholars in an elite 8-week entrepreneurship fellowship for Canada's top students. Built and pitched a venture project, mentored by Peter Thiel Fellows and YC-backed founders.",
     highlights: ["1 of 17", "Peter Thiel Fellows and YC-backed founders"],
